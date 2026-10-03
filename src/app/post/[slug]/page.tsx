@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from "@/sanity/lib/client";
 import RetroWindow from "@/components/RetroWindow";
-import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 
@@ -68,24 +67,35 @@ export default async function PostPage({
     { slug },
   );
 
-  if (!post) {
-    return notFound();
-  }
+  if (!post) return notFound();
 
   return (
-    <main className="min-h-screen p-4 md:p-8 bg-fuchsia-200 flex flex-col items-center">
-      <div className="w-full max-w-3xl pt-6">
-        <Link
-          href="/"
-          className="inline-block mb-6 text-fuchsia-700 font-bold hover:text-pink-500 hover:underline"
-        >
-          ← Voltar para a Home
-        </Link>
+    <main className="min-h-screen p-4 md:p-12 bg-fuchsia-200 flex flex-col items-center pt-40 md:pt-48">
+      <div className="relative w-full max-w-xl">
+        <div className="absolute -top-17 -right-6 md:-right-13 flex flex-col items-end z-10 pointer-events-none transform rotate-2">
+          <span className="font-[var(--font-caveat)] text-xl md:text-2xl text-pink-600 font-bold bg-white/70 backdrop-blur-md px-3 py-1 rounded-lg mb-1 shadow-sm">
+            retornar para a página inicial
+          </span>
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-pink-600 mr-8"
+          >
+            <line x1="19" y1="5" x2="5" y2="19" />
+            <polyline points="14 19 5 19 5 10" />
+          </svg>
+        </div>
 
-        <RetroWindow title={`${slug}.txt`}>
-          <article className="p-2 md:p-6">
-            <header className="mb-8 border-b-2 border-pink-200 pb-6 text-center">
-              <h1 className="text-5xl font-[var(--font-caveat)] text-pink-600 mb-2">
+        <RetroWindow title={`${slug}.txt`} onCloseHref="/">
+          <article className="p-2 md:p-6 text-center">
+            <header className="mb-8 border-b-2 border-pink-200 pb-6">
+              <h1 className="text-5xl font-[var(--font-caveat)] text-pink-600 mb-2 leading-tight">
                 {post.title}
               </h1>
               <time className="text-gray-500 font-bold uppercase text-sm tracking-wider">
@@ -94,24 +104,29 @@ export default async function PostPage({
             </header>
 
             {post.imageUrl && (
-              <div className="mb-10 border-4 border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] bg-white p-2 transform -rotate-1 mx-auto max-w-lg">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="w-full h-auto object-cover filter grayscale-[10%] sepia-[10%]"
-                />
+              <div className="relative mx-auto mb-10 w-[260px] sm:w-[320px] bg-white p-3 pb-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)] border border-gray-300 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-white/60 backdrop-blur-sm border border-gray-200 shadow-sm rotate-3 z-10" />
+                <div className="bg-pink-100 w-full aspect-square border border-gray-200 overflow-hidden flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="block w-full h-full object-cover filter grayscale-[10%] sepia-[10%]"
+                  />
+                </div>
               </div>
             )}
 
-            <div className="font-[var(--font-comic)]">
+            <div className="font-[var(--font-comic)] text-left">
               {post.body ? (
                 <PortableText
                   value={post.body}
                   components={portableTextComponents}
                 />
               ) : (
-                <p>O post tá vazio! Cadê a fofoca?</p>
+                <p className="text-center italic text-gray-500">
+                  O post tá vazio! Cadê a fofoca?
+                </p>
               )}
             </div>
           </article>
