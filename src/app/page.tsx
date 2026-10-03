@@ -1,17 +1,50 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { client } from "@/sanity/lib/client";
 import RetroWindow from "@/components/RetroWindow";
 import RetroButton from "@/components/RetroButton";
 import PolaroidPost from "@/components/PolaroidPost";
 
-export default function Home() {
+export const revalidate = 0;
+
+export default async function Home() {
+  const posts =
+    await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
+    _id,
+    title,
+    publishedAt,
+    "imageUrl": mainImage.asset->url,
+    body
+  }`);
+
+  const getExcerpt = (body: any[]) => {
+    const firstBlock = body?.find((block) => block._type === "block");
+    return firstBlock
+      ? firstBlock.children.map((child: any) => child.text).join("")
+      : "Sem descrição...";
+  };
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date
+      .toLocaleDateString("pt-PT", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+      .toUpperCase()
+      .replace(" DE ", " ");
+  };
+
   return (
-    <main className="min-h-screen p-8 bg-fuchsia-200 flex flex-col lg:flex-row gap-12 items-center lg:items-start justify-center">
-      <div className="w-full max-w-xl pt-10">
+    <main className="min-h-screen p-8 bg-fuchsia-200 flex flex-col gap-12 items-center lg:items-start justify-center">
+      <div className="w-full max-w-2xl mx-auto pt-10">
         <RetroWindow title="bem_vindo_naymi.exe">
-          <h1 className="text-4xl font-handwriting text-pink-600 mb-4">
+          <h1 className="text-4xl font-[var(--font-caveat)] text-pink-600 mb-4">
             Oioioi! ✨
           </h1>
           <p className="text-gray-800 mb-6">
-            O blog mais icônico da internet está nascendo!
+            O blog mais icónico da internet está nascendo!
           </p>
 
           <div className="flex justify-end">
@@ -20,14 +53,21 @@ export default function Home() {
         </RetroWindow>
       </div>
 
-      <div className="w-full max-w-sm pt-10">
-        <PolaroidPost
-          title="look da bienal!"
-          date="03 OUT 2026"
-          imageUrl="https://picsum.photos/400/400?random=1"
-          content="Fui na bienal do livro e resolvi colocar aquela saia que eu tava customizando. Achei que ficou super Monster High vibes!"
-          rotation="-rotate-3"
-        />
+      <div className="w-full flex flex-wrap justify-center gap-10 pt-10 px-4">
+        {posts.map((post: any, index: number) => {
+          const rotation = index % 2 === 0 ? "rotate-2" : "-rotate-3";
+
+          return (
+            <PolaroidPost
+              key={post._id}
+              title={post.title}
+              date={formatDate(post.publishedAt)}
+              imageUrl={post.imageUrl}
+              content={getExcerpt(post.body)}
+              rotation={rotation}
+            />
+          );
+        })}
       </div>
     </main>
   );
