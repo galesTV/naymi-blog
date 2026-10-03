@@ -47,7 +47,7 @@ export default async function Home() {
             Oioioi! ✨
           </h1>
           <p className="text-gray-800 mb-6">
-            O blog mais icónico da internet está nascendo!
+            O blog mais icônico da internet está nascendo!
           </p>
 
           <div className="flex justify-end">
