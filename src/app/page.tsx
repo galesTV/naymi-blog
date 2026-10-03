@@ -3,6 +3,7 @@ import { client } from "@/sanity/lib/client";
 import RetroWindow from "@/components/RetroWindow";
 import RetroButton from "@/components/RetroButton";
 import PolaroidPost from "@/components/PolaroidPost";
+import Link from "next/link";
 
 export const revalidate = 0;
 
@@ -12,6 +13,7 @@ export default async function Home() {
     _id,
     title,
     publishedAt,
+    "slug": slug.current,
     "imageUrl": mainImage.asset->url,
     body
   }`);
@@ -38,13 +40,14 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen p-8 bg-fuchsia-200 flex flex-col gap-12 items-center lg:items-start justify-center">
+
       <div className="w-full max-w-2xl mx-auto pt-10">
         <RetroWindow title="bem_vindo_naymi.exe">
           <h1 className="text-4xl font-[var(--font-caveat)] text-pink-600 mb-4">
             Oioioi! ✨
           </h1>
           <p className="text-gray-800 mb-6">
-            O blog mais icónico da internet está nascendo!
+            O blog mais icônico da internet está nascendo!
           </p>
 
           <div className="flex justify-end">
@@ -58,14 +61,15 @@ export default async function Home() {
           const rotation = index % 2 === 0 ? "rotate-2" : "-rotate-3";
 
           return (
-            <PolaroidPost
-              key={post._id}
-              title={post.title}
-              date={formatDate(post.publishedAt)}
-              imageUrl={post.imageUrl}
-              content={getExcerpt(post.body)}
-              rotation={rotation}
-            />
+            <Link key={post._id} href={`/post/${post.slug}`}>
+              <PolaroidPost
+                title={post.title}
+                date={formatDate(post.publishedAt)}
+                imageUrl={post.imageUrl}
+                content={getExcerpt(post.body)}
+                rotation={rotation}
+              />
+            </Link>
           );
         })}
       </div>
