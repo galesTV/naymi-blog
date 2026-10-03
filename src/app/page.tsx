@@ -7,7 +7,9 @@ export default function Home() {
     <main className="min-h-screen p-8 bg-fuchsia-200 flex flex-col lg:flex-row gap-12 items-center lg:items-start justify-center">
       <div className="w-full max-w-xl pt-10">
         <RetroWindow title="bem_vindo_naymi.exe">
-          <h1 className="text-2xl font-bold text-pink-600 mb-4">Oioioi! ✨</h1>
+          <h1 className="text-4xl font-handwriting text-pink-600 mb-4">
+            Oioioi! ✨
+          </h1>
           <p className="text-gray-800 mb-6">
             O blog mais icônico da internet está nascendo!
           </p>
