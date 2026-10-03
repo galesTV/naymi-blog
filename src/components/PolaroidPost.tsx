@@ -39,7 +39,7 @@ export default function PolaroidPost({
         <h2 className="font-extrabold text-xl text-gray-800 leading-tight mb-1">
           {title}
         </h2>
-        <p className="text-xs text-fuchsia-500 font-bold mb-2 uppercase tracking-wider">
+        <p className="text-2xl text-fuchsia-500 font-handwriting mb-2">
           {date}
         </p>
         <p className="text-sm text-gray-600 line-clamp-3">{content}</p>

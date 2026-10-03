@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-pixel: var(--font-vt323);
+  --font-handwriting: var(--font-caveat);
+  --font-comic: var(--font-comic);
+}
+
 body {
   background-color: #fce7f3;
 }
