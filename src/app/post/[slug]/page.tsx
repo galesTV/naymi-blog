@@ -4,7 +4,7 @@ import RetroWindow from "@/components/RetroWindow";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0;
+export const revalidate = 30;
 
 const portableTextComponents = {
   block: {
