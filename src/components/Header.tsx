@@ -1,12 +1,51 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RetroMarquee = "marquee" as any;
 
+const playlist = [
+  { title: "Britney Spears - Toxic", src: "/music/Britney Spears - Toxic.mp3" },
+  {
+    title: "PinkPantheress - Stateside + Zara Larsson",
+    src: "/music/PinkPantheress - Stateside Zara Larsson.mp3",
+  },
+  {
+    title: "Nelly Furtado - Maneater",
+    src: "/music/Nelly Furtado - Maneater.mp3",
+  },
+  {
+    title: "Avril Lavigne - Girlfriend",
+    src: "/music/Avril Lavigne - Girlfriend.mp3",
+  },
+  {
+    title: "Nelly Furtado - Promiscuous (feat. Timbaland)",
+    src: "/music/Nelly Furtado - Promiscuous ft. Timbaland.mp3",
+  },
+  {
+    title: "Rihanna - Pon de Replay",
+    src: "/music/Rihanna - Pon de Replay.mp3",
+  },
+  {
+    title: "Victoria Justice - Freak the Freak Out",
+    src: "/music/Victoria Justice - Freak the Freak Out.mp3",
+  },
+];
+
+const marqueeMessages = [
+  "✨ BEM-VINDOS AO DIÁRIO DA NAYMI! ✨",
+  "O BLOG MAIS ICÔNICO DA INTERNET",
+  "O BLOG MAIS Y2K QUE JÁ VIRAM!",
+  "MUITA CULTURA POP E GEEK! 💖",
+];
+
 export default function Header() {
   const [frame, setFrame] = useState(1);
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -14,6 +53,32 @@ export default function Header() {
     }, 500);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current
+          .play()
+          .catch((err) => console.warn("Autoplay bloqueado:", err));
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying, currentSongIndex]);
+
+  const togglePlay = () => setIsPlaying(!isPlaying);
+
+  const nextSong = () => {
+    setCurrentSongIndex((prev) => (prev + 1) % playlist.length);
+    setIsPlaying(true);
+  };
+
+  const prevSong = () => {
+    setCurrentSongIndex(
+      (prev) => (prev - 1 + playlist.length) % playlist.length,
+    );
+    setIsPlaying(true);
+  };
 
   const title = "NAYMI";
   const fonts = [
@@ -44,49 +109,84 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full sticky top-0 z-50 shadow-xl">
-      <div className="bg-pink-500 text-white font-(--font-vt323) text-xl md:text-2xl border-b-2 border-black py-1 overflow-hidden whitespace-nowrap">
-        <RetroMarquee scrollamount="10">
-          ✨ BEM-VINDOS AO DIÁRIO DA NAYMI! ✨ O BLOG MAIS ICÔNICO DA INTERNET 
-          O BLOG MAIS Y2K QUE VIRAM! MUITA CULTURA POP E GEEK!✨✨
+    <header className="w-full sticky top-0 z-50 shadow-md">
+      <div className="bg-pink-500 text-white font-(--font-vt323) text-lg border-b-2 border-black py-0.5 overflow-hidden whitespace-nowrap">
+        <RetroMarquee scrollamount="8">
+          {marqueeMessages.join("                 ⭐                 ")}
         </RetroMarquee>
       </div>
 
-      <div className="w-full bg-fuchsia-300 border-b-4 border-pink-400 p-4 relative flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 md:gap-8 px-8">
-        <div className="relative w-28 h-28 md:w-36 md:h-36 shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
+      <div className="w-full bg-fuchsia-300 border-b-4 border-pink-400 py-2 px-4 md:px-8 flex flex-row items-center justify-between">
+        <div className="relative w-30 h-30 md:w-32 md:h-32 shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
           <Link href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={frame === 1 ? "/naymi-1.png" : "/naymi-2.png"}
               alt="Naymi Stop Motion"
-              className="w-full h-full object-contain drop-shadow-[4px_4px_0px_rgba(0,0,0,0.2)]"
+              className="w-full h-full object-contain drop-shadow-[3px_3px_0px_rgba(0,0,0,0.2)]"
             />
           </Link>
         </div>
 
-        <Link href="/" className="flex gap-1 md:gap-2 z-10 hover:opacity-80">
+        <Link href="/" className="flex gap-1 z-10 hover:opacity-80">
           {title.split("").map((letter, i) => (
             <span
               key={i}
-              className={`inline-block px-3 py-1 border-2 border-gray-800 shadow-[3px_3px_0px_rgba(0,0,0,1)] text-4xl md:text-6xl font-bold uppercase ${fonts[i % fonts.length]} ${textColors[i % textColors.length]} ${bgColors[i % bgColors.length]} ${rotations[i % rotations.length]}`}
+              className={`inline-block px-2 py-0.5 md:px-3 md:py-1 border-2 border-gray-800 shadow-[2px_2px_0px_rgba(0,0,0,1)] text-3xl md:text-5xl font-bold uppercase ${fonts[i % fonts.length]} ${textColors[i % textColors.length]} ${bgColors[i % bgColors.length]} ${rotations[i % rotations.length]}`}
             >
               {letter}
             </span>
           ))}
         </Link>
 
-        <div className="md:absolute right-8 -bottom-3.75 bg-[#c0c0c0] border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 p-2 shadow-lg transform rotate-3 flex items-center gap-3">
-          <div className="w-8 h-8 bg-black rounded-full border-2 border-gray-700 flex items-center justify-center animate-[spin_3s_linear_infinite]">
-            <div className="w-3 h-3 bg-fuchsia-500 rounded-full border border-gray-300"></div>
+        <div className="bg-[#c0c0c0] border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 p-2 md:p-3 shadow-md flex items-center gap-3 md:gap-4 w-45 md:w-70">
+          <div
+            className={`shrink-0 w-10 h-10 md:w-14 md:h-14 bg-black rounded-full border-2 border-gray-700 flex items-center justify-center ${isPlaying ? "animate-[spin_3s_linear_infinite]" : ""}`}
+          >
+            <div className="w-4 h-4 md:w-5 md:h-5 bg-fuchsia-500 rounded-full border border-gray-300"></div>
           </div>
-          <div className="font-(--font-vt323) leading-tight">
-            <p className="text-gray-700 text-sm">▶ Now Playing</p>
-            <p className="text-blue-800 text-lg font-bold">
-              Britney Spears - Toxic
+
+          <div className="font-(--font-vt323) leading-none w-full overflow-hidden flex flex-col justify-center">
+            <p className="text-gray-700 text-xs md:text-sm mb-1">
+              {isPlaying ? "▶ Now Playing" : "⏸ Paused"}
             </p>
+            <p
+              className="text-blue-800 text-sm md:text-base font-bold truncate mb-2"
+              title={playlist[currentSongIndex].title}
+            >
+              {playlist[currentSongIndex].title}
+            </p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={prevSong}
+                className="bg-gray-300 hover:bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-2 py-0.5 text-xs active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white font-bold"
+              >
+                ⏮
+              </button>
+              <button
+                onClick={togglePlay}
+                className="bg-gray-300 hover:bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-3 py-0.5 text-xs active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white font-bold"
+              >
+                {isPlaying ? "||" : "▶"}
+              </button>
+              <button
+                onClick={nextSong}
+                className="bg-gray-300 hover:bg-white border-2 border-t-white border-l-white border-b-gray-600 border-r-gray-600 px-2 py-0.5 text-xs active:border-t-gray-600 active:border-l-gray-600 active:border-b-white active:border-r-white font-bold"
+              >
+                ⏭
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      <audio
+        ref={audioRef}
+        src={playlist[currentSongIndex].src}
+        onEnded={nextSong}
+        className="hidden"
+      />
     </header>
   );
 }
