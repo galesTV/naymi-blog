@@ -9,3 +9,150 @@
 body {
   background-color: #fce7f3;
 }
+
+@keyframes scrap-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes scrap-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-5px);
+  }
+}
+
+@keyframes sticker {
+  0%,
+  100% {
+    transform: rotate(-3deg) scale(1);
+  }
+  50% {
+    transform: rotate(3deg) scale(1.05);
+  }
+}
+
+@keyframes glitter {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4) rotate(20deg);
+  }
+}
+
+@keyframes cd-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes butterfly {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-8deg);
+  }
+  25% {
+    transform: translate(8px, -5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(15px, -12px) rotate(8deg);
+  }
+  75% {
+    transform: translate(5px, -7px) rotate(-4deg);
+  }
+}
+
+@keyframes bow {
+  0%,
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.08);
+  }
+}
+
+@keyframes heart {
+  0%,
+  100% {
+    transform: scale(1) rotate(-8deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(8deg);
+  }
+}
+
+@keyframes star {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.15);
+  }
+}
+
+@keyframes cassette {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0);
+  }
+  50% {
+    transform: rotate(8deg) translateY(-6px);
+  }
+}
+
+.animate-scrap-float {
+  animation: scrap-float 4s ease-in-out infinite;
+}
+
+.animate-scrap-sway {
+  animation: scrap-sway 5s ease-in-out infinite;
+}
+
+.animate-sticker {
+  animation: sticker 3s ease-in-out infinite;
+}
+
+.animate-glitter {
+  animation: glitter 1.8s ease-in-out infinite;
+}
+
+.animate-cd-spin {
+  animation: cd-spin 12s linear infinite;
+}
+
+.animate-butterfly {
+  animation: butterfly 4s ease-in-out infinite;
+}
+
+.animate-bow {
+  animation: bow 3s ease-in-out infinite;
+}
+
+.animate-heart {
+  animation: heart 2.5s ease-in-out infinite;
+}
+
+.animate-star {
+  animation: star 2s ease-in-out infinite;
+}
+
+.animate-cassette {
+  animation: cassette 4s ease-in-out infinite;
+}

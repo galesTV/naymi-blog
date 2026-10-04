@@ -70,7 +70,7 @@ export default async function PostPage({
   if (!post) return notFound();
 
   return (
-    <main className="min-h-screen p-4 md:p-12 bg-fuchsia-200 flex flex-col items-center pt-40 md:pt-48">
+    <main className="min-h-screen p-4 md:p-12 flex flex-col items-center pt-40 md:pt-48">
       <div className="relative w-full max-w-xl">
         <div className="absolute -top-17 -right-6 md:-right-13 flex flex-col items-end z-10 pointer-events-none transform rotate-2">
           <span className="font-[var(--font-caveat)] text-xl md:text-2xl text-pink-600 font-bold bg-white/70 backdrop-blur-md px-3 py-1 rounded-lg mb-1 shadow-sm">
