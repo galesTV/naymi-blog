@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { VT323, Caveat, Comic_Neue } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import BackgroundScrapbook from "@/components/BackgroundScrapbook";
 
 const vt323 = VT323({
   weight: "400",
@@ -29,8 +30,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body
         suppressHydrationWarning
-        className={`${vt323.variable} ${caveat.variable} ${comic.variable} font-comic antialiased min-h-screen bg-fuchsia-200`}
+        className={`${vt323.variable} ${caveat.variable} ${comic.variable} font-comic antialiased min-h-screen`}
       >
+        <BackgroundScrapbook />
         <Header />
         {children}
       </body>
