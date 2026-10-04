@@ -5,7 +5,7 @@ import RetroButton from "@/components/RetroButton";
 import PolaroidPost from "@/components/PolaroidPost";
 import Link from "next/link";
 
-export const revalidate = 0;
+export const revalidate = 30;
 
 export default async function Home() {
   const posts =
