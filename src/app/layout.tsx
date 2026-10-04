@@ -3,13 +3,16 @@ import { VT323, Caveat, Comic_Neue } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import BackgroundScrapbook from "@/components/BackgroundScrapbook";
+import Footer from "@/components/Footer";
 
 const vt323 = VT323({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-vt323",
 });
+
 const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
+
 const comic = Comic_Neue({
   weight: ["400", "700"],
   subsets: ["latin"],
@@ -34,7 +37,11 @@ export default function RootLayout({
       >
         <BackgroundScrapbook />
         <Header />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
+
+        <Footer />
       </body>
     </html>
   );
