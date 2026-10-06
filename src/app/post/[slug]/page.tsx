@@ -9,30 +9,69 @@ export const revalidate = 30;
 const portableTextComponents = {
   block: {
     normal: ({ children }: any) => (
-      <p className="mb-4 text-gray-800 text-lg leading-relaxed">{children}</p>
+      <p className="mb-5 text-gray-800 text-lg md:text-xl font-(--font-comic) leading-relaxed">
+        {children}
+      </p>
     ),
     h1: ({ children }: any) => (
-      <h1 className="text-4xl font-[var(--font-caveat)] text-pink-600 mb-6 mt-8">
+      <h1 className="text-4xl md:text-5xl font-(--font-caveat) text-pink-600 bg-yellow-200 inline-block px-3 py-1 border-2 border-dashed border-pink-400 transform -rotate-2 shadow-sm mb-6 mt-8">
         {children}
       </h1>
     ),
     h2: ({ children }: any) => (
-      <h2 className="text-2xl font-bold text-fuchsia-500 mb-4 mt-6">
+      <h2 className="text-2xl md:text-3xl font-(--font-vt323) text-white bg-blue-600 inline-block px-3 py-1 border-2 border-black transform rotate-1 shadow-[3px_3px_0px_rgba(0,0,0,1)] mb-4 mt-6">
         {children}
       </h2>
     ),
     blockquote: ({ children }: any) => (
-      <blockquote className="border-l-4 border-pink-400 pl-4 my-4 italic text-gray-600 bg-pink-50 py-2 pr-2">
+      <div className="relative my-8 px-2 md:px-8">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-5 bg-yellow-100/60 rotate-3 z-10 shadow-sm border border-yellow-200 backdrop-blur-[1px]"></div>
+        <blockquote className="bg-yellow-200 border border-yellow-300 p-4 md:p-6 font-(--font-caveat) text-2xl md:text-3xl text-gray-800 transform -rotate-1 shadow-md">
+          &quot;{children}&quot;
+        </blockquote>
+      </div>
+    ),
+  },
+  list: {
+    bullet: ({ children }: any) => (
+      <ul className="mb-5 flex flex-col gap-2 font-(--font-comic) text-lg text-gray-800 pl-2">
         {children}
-      </blockquote>
+      </ul>
+    ),
+    number: ({ children }: any) => (
+      <ol className="list-decimal list-inside mb-5 flex flex-col gap-2 font-(--font-comic) text-lg text-gray-800 font-bold">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: any) => (
+      <li className="flex items-start gap-2">
+        <span className="text-pink-500 mt-1 drop-shadow-sm text-sm">💖</span>
+        <span>{children}</span>
+      </li>
     ),
   },
   marks: {
     strong: ({ children }: any) => (
-      <strong className="font-extrabold text-pink-600">{children}</strong>
+      <strong className="bg-pink-300 text-black px-1 font-extrabold transform rotate-1 inline-block">
+        {children}
+      </strong>
     ),
     em: ({ children }: any) => (
-      <em className="italic text-purple-600">{children}</em>
+      <em className="font-(--font-caveat) text-2xl text-blue-700 not-italic">
+        {children}
+      </em>
+    ),
+    link: ({ children, value }: any) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 font-bold underline decoration-2 decoration-blue-600 hover:text-pink-500 hover:decoration-pink-500 hover:bg-yellow-100 transition-colors cursor-help"
+      >
+        {children}
+      </a>
     ),
   },
 };
@@ -71,9 +110,9 @@ export default async function PostPage({
 
   return (
     <main className="min-h-screen p-4 md:p-12 flex flex-col items-center pt-40 md:pt-48">
-      <div className="relative w-full max-w-xl">
+      <div className="relative w-full max-w-2xl">
         <div className="absolute -top-17 -right-6 md:-right-13 flex flex-col items-end z-10 pointer-events-none transform rotate-2">
-          <span className="font-[var(--font-caveat)] text-xl md:text-2xl text-pink-600 font-bold bg-white/70 backdrop-blur-md px-3 py-1 rounded-lg mb-1 shadow-sm">
+          <span className="font-(--font-caveat) text-xl md:text-2xl text-pink-600 font-bold bg-white/70 backdrop-blur-md px-3 py-1 rounded-lg mb-1 shadow-sm">
             retornar para a página inicial
           </span>
           <svg
@@ -95,7 +134,7 @@ export default async function PostPage({
         <RetroWindow title={`${slug}.txt`} onCloseHref="/">
           <article className="p-2 md:p-6 text-center">
             <header className="mb-8 border-b-2 border-pink-200 pb-6">
-              <h1 className="text-5xl font-[var(--font-caveat)] text-pink-600 mb-2 leading-tight">
+              <h1 className="text-5xl font-(--font-caveat) text-pink-600 mb-2 leading-tight">
                 {post.title}
               </h1>
               <time className="text-gray-500 font-bold uppercase text-sm tracking-wider">
@@ -117,14 +156,14 @@ export default async function PostPage({
               </div>
             )}
 
-            <div className="font-[var(--font-comic)] text-left">
+            <div className="text-left w-full mt-4">
               {post.body ? (
                 <PortableText
                   value={post.body}
                   components={portableTextComponents}
                 />
               ) : (
-                <p className="text-center italic text-gray-500">
+                <p className="text-center italic text-gray-500 font-(--font-comic)">
                   O post tá vazio! Cadê a fofoca?
                 </p>
               )}

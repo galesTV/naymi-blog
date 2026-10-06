@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import BackgroundScrapbook from "@/components/BackgroundScrapbook";
 import Footer from "@/components/Footer";
+import StudioHide from "@/components/StudioHide";
 
 const vt323 = VT323({
   weight: "400",
@@ -35,13 +36,18 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${vt323.variable} ${caveat.variable} ${comic.variable} font-comic antialiased min-h-screen`}
       >
-        <BackgroundScrapbook />
-        <Header />
+        <StudioHide>
+          <BackgroundScrapbook />
+          <Header />
+        </StudioHide>
+
         <div className="flex-1">
           {children}
         </div>
 
-        <Footer />
+        <StudioHide>
+          <Footer />
+        </StudioHide>
       </body>
     </html>
   );
