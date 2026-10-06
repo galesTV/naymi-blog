@@ -19,7 +19,7 @@ export default function RetroWindow({
   onCloseHref,
 }: RetroWindowProps) {
   return (
-    <div className="border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 bg-[#c0c0c0] p-[2px] shadow-lg max-w-xl w-full">
+    <div className="border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 bg-[#c0c0c0] p-[2px] shadow-lg max-w-xl">
       <div className="bg-gradient-to-r from-blue-800 to-blue-500 px-2 py-1 flex justify-between items-center mb-1">
         <span
           className="text-white text-xl tracking-wider"

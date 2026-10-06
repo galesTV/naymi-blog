@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body
         suppressHydrationWarning
-        className={`${vt323.variable} ${caveat.variable} ${comic.variable} font-comic antialiased min-h-screen`}
+        className={`${vt323.variable} ${caveat.variable} ${comic.variable} font-comic antialiased min-h-screen flex flex-col`}
       >
         <StudioHide>
           <BackgroundScrapbook />

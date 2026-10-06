@@ -109,67 +109,69 @@ export default async function PostPage({
   if (!post) return notFound();
 
   return (
-    <main className="min-h-screen p-4 md:p-12 flex flex-col items-center pt-40 md:pt-48">
-      <div className="relative w-full max-w-2xl">
-        <div className="absolute -top-17 -right-6 md:-right-13 flex flex-col items-end z-10 pointer-events-none transform rotate-2">
-          <span className="font-(--font-caveat) text-xl md:text-2xl text-pink-600 font-bold bg-white/70 backdrop-blur-md px-3 py-1 rounded-lg mb-1 shadow-sm">
+    <main className="min-h-screen flex flex-col items-center pt-32 md:pt-40 px-4 pb-20 w-full">
+      <div className="relative w-full max-w-xl mx-auto mt-4 md:mt-8">
+        <div className="absolute bottom-full right-0 mb-2 flex flex-col items-end z-10 pointer-events-none transform rotate-2">
+          <span className="font-(--font-caveat) text-xl md:text-2xl text-pink-600 font-bold bg-white/90 border-2 border-pink-200 px-3 py-1 shadow-sm mb-1">
             retornar para a página inicial
           </span>
           <svg
-            width="40"
-            height="40"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-pink-600 mr-8"
+            className="text-pink-600 mr-2 mt-1"
           >
-            <line x1="19" y1="5" x2="5" y2="19" />
-            <polyline points="14 19 5 19 5 10" />
+            <line x1="12" y1="2" x2="12" y2="20" />
+            <polyline points="6 14 12 20 18 14" />
           </svg>
         </div>
 
-        <RetroWindow title={`${slug}.txt`} onCloseHref="/">
-          <article className="p-2 md:p-6 text-center">
-            <header className="mb-8 border-b-2 border-pink-200 pb-6">
-              <h1 className="text-5xl font-(--font-caveat) text-pink-600 mb-2 leading-tight">
-                {post.title}
-              </h1>
-              <time className="text-gray-500 font-bold uppercase text-sm tracking-wider">
-                Publicado em {formatDate(post.publishedAt)}
-              </time>
-            </header>
+        <div className="w-full">
+          <RetroWindow title={`${slug}.txt`} onCloseHref="/">
+            <article className="p-2 md:p-6 text-center">
+              <header className="mb-8 border-b-2 border-pink-200 pb-6">
+                <h1 className="text-5xl font-(--font-caveat) text-pink-600 mb-2 leading-tight">
+                  {post.title}
+                </h1>
+                <time className="text-gray-500 font-bold uppercase text-sm tracking-wider">
+                  Publicado em {formatDate(post.publishedAt)}
+                </time>
+              </header>
 
-            {post.imageUrl && (
-              <div className="relative mx-auto mb-10 w-[260px] sm:w-[320px] bg-white p-3 pb-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)] border border-gray-300 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-white/60 backdrop-blur-sm border border-gray-200 shadow-sm rotate-3 z-10" />
-                <div className="bg-pink-100 w-full aspect-square border border-gray-200 overflow-hidden flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={post.imageUrl}
-                    alt={post.title}
-                    className="block w-full h-full object-cover filter grayscale-[10%] sepia-[10%]"
-                  />
+              {post.imageUrl && (
+                <div className="relative mx-auto mb-10 w-[260px] sm:w-[320px] bg-white p-3 pb-10 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.15)] border border-gray-300 transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 h-8 bg-white/60 backdrop-blur-sm border border-gray-200 shadow-sm rotate-3 z-10" />
+                  <div className="bg-pink-100 w-full aspect-square border border-gray-200 overflow-hidden flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="block w-full h-full object-cover filter grayscale-[10%] sepia-[10%]"
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-
-            <div className="text-left w-full mt-4">
-              {post.body ? (
-                <PortableText
-                  value={post.body}
-                  components={portableTextComponents}
-                />
-              ) : (
-                <p className="text-center italic text-gray-500 font-(--font-comic)">
-                  O post tá vazio! Cadê a fofoca?
-                </p>
               )}
-            </div>
-          </article>
-        </RetroWindow>
+
+              <div className="text-left w-full mt-4">
+                {post.body ? (
+                  <PortableText
+                    value={post.body}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <p className="text-center italic text-gray-500 font-(--font-comic)">
+                    O post tá vazio! Cadê a fofoca?
+                  </p>
+                )}
+              </div>
+            </article>
+          </RetroWindow>
+        </div>
       </div>
     </main>
   );
