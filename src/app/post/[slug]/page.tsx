@@ -1,10 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import RetroWindow from "@/components/RetroWindow";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 
 export const revalidate = 30;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  
+  const post = await client.fetch(
+    `*[_type == "post" && slug.current == $slug][0] {
+      title,
+      "imageUrl": mainImage.asset->url,
+    }`,
+    { slug }
+  );
+
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    openGraph: {
+      title: post.title,
+      images: post.imageUrl ? [{ url: post.imageUrl }] : [],
+      type: "article",
+    },
+  };
+}
 
 const portableTextComponents = {
   block: {

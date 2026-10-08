@@ -21,8 +21,28 @@ const comic = Comic_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Blog da Naymi",
-  description: "O blog mais icônico da internet",
+  title: {
+    template: "%s | Blog da Naymi",
+    default: "Blog da Naymi ✨ O diário mais Y2K da internet",
+  },
+  description:
+    "Sobrevivendo à internet. Amo cultura pop, geek, design vintage e publicidade! 🎀✨",
+  openGraph: {
+    title: "Blog da Naymi",
+    description:
+      "O diário mais Y2K da internet. Cultura pop, desabafos e web design de 2006.",
+    url: "https://google.com",
+    siteName: "Blog da Naymi",
+    images: [
+      {
+        url: "/naymi-1.png",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -41,9 +61,7 @@ export default function RootLayout({
           <Header />
         </StudioHide>
 
-        <div className="flex-1">
-          {children}
-        </div>
+        <div className="flex-1">{children}</div>
 
         <StudioHide>
           <Footer />
