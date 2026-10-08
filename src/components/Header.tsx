@@ -181,6 +181,27 @@ export default function Header() {
         </div>
       </div>
 
+      <nav className="w-full bg-[#c0c0c0] border-t-[3px] border-t-white border-b-[3px] border-b-gray-800 px-4 md:px-8 py-1 flex items-center justify-center gap-4 md:gap-8 font-sans text-sm md:text-base font-bold text-gray-800 relative z-40 shadow-md">
+        <Link
+          href="/"
+          className="cursor-pointer hover:bg-blue-800 hover:text-white px-3 py-0.5 flex items-center gap-2 border border-transparent hover:border-dotted hover:border-white transition-colors"
+        >
+          <span>🏠</span> Home
+        </Link>
+        <Link
+          href="/arquivo"
+          className="cursor-pointer hover:bg-blue-800 hover:text-white px-3 py-0.5 flex items-center gap-2 border border-transparent hover:border-dotted hover:border-white transition-colors"
+        >
+          <span>📁</span> Arquivo
+        </Link>
+        <Link
+          href="/links"
+          className="cursor-pointer hover:bg-blue-800 hover:text-white px-3 py-0.5 flex items-center gap-2 border border-transparent hover:border-dotted hover:border-white transition-colors"
+        >
+          <span>🔗</span> Links
+        </Link>
+      </nav>
+
       <audio
         ref={audioRef}
         src={playlist[currentSongIndex].src}

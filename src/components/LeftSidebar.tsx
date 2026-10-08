@@ -1,6 +1,5 @@
 import React from "react";
 import RetroWindow from "./RetroWindow";
-import Link from "next/link";
 
 export default function LeftSidebar() {
   return (
@@ -13,13 +12,13 @@ export default function LeftSidebar() {
       </div>
 
       <RetroWindow title="perfil_naymi.exe">
-        <div className="flex flex-col items-center text-center relative h-[340px] justify-between">
+        <div className="flex flex-col items-center text-center relative h-[340px] justify-center">
           <div className="absolute -top-2 -right-2 text-3xl animate-pulse">
             ✨
           </div>
 
-          <div className="flex flex-col items-center mt-2">
-            <div className="w-24 h-24 border-2 border-gray-400 p-1 mb-4 transform -rotate-3 shadow-md relative">
+          <div className="flex flex-col items-center">
+            <div className="w-28 h-28 border-2 border-gray-400 p-1 mb-4 transform -rotate-3 shadow-md relative mt-2">
               <div className="absolute -bottom-2 -right-2 text-xl">💖</div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -29,30 +28,13 @@ export default function LeftSidebar() {
               />
             </div>
 
-            <h2 className="font-(--font-caveat) text-4xl text-pink-600 font-bold mb-1">
+            <h2 className="font-(--font-caveat) text-5xl text-pink-600 font-bold mb-2">
               Naymi
             </h2>
-            <p className="font-(--font-comic) text-sm text-gray-700">
+            <p className="font-(--font-comic) text-base text-gray-700 px-2 leading-snug">
               Sobrevivendo à internet. Amo cultura pop, geek, design vintage e
               publicidade! 🎀✨
             </p>
-          </div>
-
-          <div className="flex gap-2 w-full mt-auto">
-            <Link
-              href="https://letterboxd.com/naysaito/"
-              target="_blank"
-              className="flex-1 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 text-xs py-1 active:border-t-gray-800 active:border-l-gray-800 active:border-b-white active:border-r-white font-bold text-black hover:bg-gray-200"
-            >
-              Letterboxd
-            </Link>
-            <Link
-              href="https://www.instagram.com/naycult_/"
-              target="_blank"
-              className="flex-1 bg-[#c0c0c0] border-2 border-t-white border-l-white border-b-gray-800 border-r-gray-800 text-xs py-1 active:border-t-gray-800 active:border-l-gray-800 active:border-b-white active:border-r-white font-bold text-black hover:bg-gray-200"
-            >
-              Instagram
-            </Link>
           </div>
         </div>
       </RetroWindow>

@@ -39,7 +39,7 @@ const rotations = [
 
 export default async function Home() {
   const posts =
-    await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
+    await client.fetch(`*[_type == "post"] | order(publishedAt desc)[0...5] {
     _id,
     title,
     publishedAt,
@@ -47,6 +47,8 @@ export default async function Home() {
     "imageUrl": mainImage.asset->url,
     body
   }`);
+
+  const latestPostSlug = posts.length > 0 ? `/post/${posts[0].slug}` : "#";
 
   const getExcerpt = (body: any[]) => {
     const firstBlock = body?.find((block) => block._type === "block");
@@ -82,8 +84,10 @@ export default async function Home() {
               <p className="text-gray-800 mb-8 text-center text-lg md:text-xl px-4">
                 O blog mais icônico da internet está nascendo!
               </p>
-              <div className="flex justify-center">
-                <RetroButton>NOVO POST 💖</RetroButton>
+              <div className="flex justify-center hover:scale-105 transition-transform">
+                <Link href={latestPostSlug}>
+                  <RetroButton>NOVO POST 💖</RetroButton>
+                </Link>
               </div>
             </div>
           </RetroWindow>
