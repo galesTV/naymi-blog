@@ -16,13 +16,27 @@ const formatDate = (dateString: string) => {
 };
 
 export default async function ArquivoPage() {
-  const posts =
-    await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
+  const postsData = await client.fetch(`*[_type == "post"] {
     _id,
     title,
     publishedAt,
     "slug": slug.current
   }`);
+
+  const reelsData = await client.fetch(`*[_type == "instagram"] {
+    _id,
+    title,
+    url,
+    publishedAt
+  }`);
+
+  const allFiles = [
+    ...postsData.map((p: any) => ({ ...p, type: "post" })),
+    ...reelsData.map((r: any) => ({ ...r, type: "reel" })),
+  ].sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
 
   return (
     <main className="min-h-screen flex flex-col items-center pt-32 md:pt-40 px-4 pb-20 w-full">
@@ -79,25 +93,41 @@ export default async function ArquivoPage() {
               </div>
 
               <div className="flex flex-col gap-1 overflow-y-auto">
-                {posts.map((post: any, index: number) => (
-                  <Link key={post._id} href={`/post/${post.slug}`}>
-                    <div
-                      className={`flex items-center px-2 py-1 cursor-pointer font-sans text-sm md:text-base group hover:bg-blue-600 hover:text-white ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
-                    >
-                      <div className="w-10 flex justify-center text-xl group-hover:drop-shadow-md">
-                        📄
-                      </div>
-                      <div className="flex-1 truncate pl-2 group-hover:underline">
-                        {post.title}
-                      </div>
-                      <div className="w-24 md:w-32 pl-2 text-xs md:text-sm text-gray-500 group-hover:text-blue-200">
-                        {formatDate(post.publishedAt)}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                {allFiles.map((file: any, index: number) => {
+                  const isPost = file.type === "post";
+                  const href = isPost ? `/post/${file.slug}` : file.url;
+                  const target = isPost ? "_self" : "_blank";
+                  const icon = isPost ? "📄" : "🎬";
+                  const extension = isPost ? ".txt" : ".mp4";
 
-                {posts.length === 0 && (
+                  return (
+                    <Link
+                      key={file._id}
+                      href={href}
+                      target={target}
+                      rel={isPost ? "" : "noopener noreferrer"}
+                    >
+                      <div
+                        className={`flex items-center px-2 py-1 cursor-pointer font-sans text-sm md:text-base group hover:bg-blue-600 hover:text-white ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                      >
+                        <div className="w-10 flex justify-center text-xl group-hover:drop-shadow-md">
+                          {icon}
+                        </div>
+                        <div className="flex-1 truncate pl-2 group-hover:underline">
+                          {file.title}
+                          <span className="opacity-40 text-xs ml-1 font-(--font-vt323)">
+                            {extension}
+                          </span>
+                        </div>
+                        <div className="w-24 md:w-32 pl-2 text-xs md:text-sm text-gray-500 group-hover:text-blue-200">
+                          {formatDate(file.publishedAt)}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+
+                {allFiles.length === 0 && (
                   <div className="text-center text-gray-500 font-(--font-comic) mt-10">
                     A pasta está vazia... 🕸️
                   </div>
@@ -105,7 +135,7 @@ export default async function ArquivoPage() {
               </div>
 
               <div className="mt-auto border-t border-gray-400 pt-1 px-2 text-xs font-sans text-gray-600 bg-gray-200 flex justify-between">
-                <span>{posts.length} objeto(s)</span>
+                <span>{allFiles.length} objeto(s)</span>
                 <span>1337 KB</span>
               </div>
             </div>
