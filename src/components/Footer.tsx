@@ -78,6 +78,23 @@ export default function Footer() {
           ALIMENTAR O TAMAGOCHI ANTES DE SAIR! ✦ ✦ ✦
         </RetroMarquee>
       </div>
+
+      <div className="w-full bg-gray-900 border-t-4 border-pink-500 py-3 flex justify-center items-center relative z-20 shadow-[0_-4px_0_rgba(0,0,0,0.2)]">
+        <p className="font-(--font-vt323) text-gray-400 text-sm md:text-base tracking-widest text-center">
+          © {new Date().getFullYear()} NAYMI. TODOS OS DIREITOS RESERVADOS.{" "}
+          <br className="md:hidden" />
+          <span className="hidden md:inline">{" // "}</span>
+          DESENVOLVIDO POR{" "}
+          <a
+            href="https://gaelguzman.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-pink-500 hover:text-white hover:bg-pink-500 px-1 transition-colors border border-transparent hover:border-pink-300 border-dashed"
+          >
+            galesTV
+          </a>
+        </p>
+      </div>
     </footer>
   );
 }
