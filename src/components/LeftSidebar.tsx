@@ -12,7 +12,7 @@ export default function LeftSidebar() {
       </div>
 
       <RetroWindow title="perfil_naymi.exe">
-        <div className="flex flex-col items-center text-center relative h-[340px] justify-center">
+        <div className="flex flex-col items-center text-center relative min-h-[340px] py-6 justify-center">
           <div className="absolute -top-2 -right-2 text-3xl animate-pulse">
             ✨
           </div>
