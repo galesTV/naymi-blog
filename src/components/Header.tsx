@@ -116,8 +116,8 @@ export default function Header() {
         </RetroMarquee>
       </div>
 
-      <div className="w-full bg-fuchsia-300 border-b-4 border-pink-400 py-2 px-4 md:px-8 flex flex-row items-center justify-between">
-        <div className="relative w-30 h-30 md:w-32 md:h-32 shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
+      <div className="w-full bg-fuchsia-300 border-b-4 border-pink-400 py-3 md:py-2 px-2 md:px-8 flex flex-col md:flex-row items-center justify-center md:justify-between gap-3 md:gap-0">
+        <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 cursor-pointer transform hover:scale-110 transition-transform">
           <Link href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -128,18 +128,18 @@ export default function Header() {
           </Link>
         </div>
 
-        <Link href="/" className="flex gap-1 z-10 hover:opacity-80">
+        <Link href="/" className="flex gap-0.5 md:gap-1 z-10 hover:opacity-80">
           {title.split("").map((letter, i) => (
             <span
               key={i}
-              className={`inline-block px-2 py-0.5 md:px-3 md:py-1 border-2 border-gray-800 shadow-[2px_2px_0px_rgba(0,0,0,1)] text-3xl md:text-5xl font-bold uppercase ${fonts[i % fonts.length]} ${textColors[i % textColors.length]} ${bgColors[i % bgColors.length]} ${rotations[i % rotations.length]}`}
+              className={`inline-block px-2 py-0.5 md:px-3 md:py-1 border-2 border-gray-800 shadow-[2px_2px_0px_rgba(0,0,0,1)] text-2xl sm:text-3xl md:text-5xl font-bold uppercase ${fonts[i % fonts.length]} ${textColors[i % textColors.length]} ${bgColors[i % bgColors.length]} ${rotations[i % rotations.length]}`}
             >
               {letter}
             </span>
           ))}
         </Link>
 
-        <div className="bg-[#c0c0c0] border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 p-2 md:p-3 shadow-md flex items-center gap-3 md:gap-4 w-45 md:w-70">
+        <div className="bg-[#c0c0c0] border-[3px] border-t-white border-l-white border-b-gray-800 border-r-gray-800 p-2 md:p-3 shadow-md flex items-center gap-3 md:gap-4 w-full max-w-[280px] md:max-w-none md:w-70 mt-2 md:mt-0">
           <div
             className={`shrink-0 w-10 h-10 md:w-14 md:h-14 bg-black rounded-full border-2 border-gray-700 flex items-center justify-center ${isPlaying ? "animate-[spin_3s_linear_infinite]" : ""}`}
           >
@@ -147,11 +147,11 @@ export default function Header() {
           </div>
 
           <div className="font-(--font-vt323) leading-none w-full overflow-hidden flex flex-col justify-center">
-            <p className="text-gray-700 text-xs md:text-sm mb-1">
+            <p className="text-gray-700 text-[10px] md:text-sm mb-1">
               {isPlaying ? "▶ Now Playing" : "⏸ Paused"}
             </p>
             <p
-              className="text-blue-800 text-sm md:text-base font-bold truncate mb-2"
+              className="text-blue-800 text-xs md:text-base font-bold truncate mb-2"
               title={playlist[currentSongIndex].title}
             >
               {playlist[currentSongIndex].title}
@@ -181,7 +181,7 @@ export default function Header() {
         </div>
       </div>
 
-      <nav className="w-full bg-[#c0c0c0] border-t-[3px] border-t-white border-b-[3px] border-b-gray-800 px-2 md:px-8 py-1 flex items-center justify-center gap-2 md:gap-8 font-sans text-xs sm:text-sm md:text-base font-bold text-gray-800 relative z-40 shadow-md">
+      <nav className="w-full bg-[#c0c0c0] border-t-[3px] border-t-white border-b-[3px] border-b-gray-800 px-2 md:px-8 py-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 md:gap-8 font-sans text-xs sm:text-sm md:text-base font-bold text-gray-800 relative z-40 shadow-md">
         <Link
           href="/"
           className="cursor-pointer hover:bg-blue-800 hover:text-white px-2 md:px-3 py-0.5 flex items-center gap-1 md:gap-2 border border-transparent hover:border-dotted hover:border-white transition-colors"

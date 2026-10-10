@@ -7,15 +7,19 @@ import { notFound } from "next/navigation";
 
 export const revalidate = 30;
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  
+
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0] {
       title,
       "imageUrl": mainImage.asset->url,
     }`,
-    { slug }
+    { slug },
   );
 
   if (!post) return {};
@@ -159,7 +163,7 @@ export default async function PostPage({
           <RetroWindow title={`${slug}.txt`} onCloseHref="/">
             <article className="p-2 md:p-6 text-center">
               <header className="mb-8 border-b-2 border-pink-200 pb-6">
-                <h1 className="text-5xl font-(--font-caveat) text-pink-600 mb-2 leading-tight">
+                <h1 className="text-4xl md:text-5xl font-(--font-caveat) text-pink-600 mb-2 leading-tight px-2">
                   {post.title}
                 </h1>
                 <time className="text-gray-500 font-bold uppercase text-sm tracking-wider">
